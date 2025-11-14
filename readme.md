@@ -9,22 +9,23 @@
 - Randomize 
 ## Liens
 
--[ Gradient]([https://](https://everywhere.tools/projects/photo-gradient))
+-[Gradient]([https://](https://everywhere.tools/projects/photo-gradient))
 
 ## II/ Description
 L'outil sert à créer des posters graphique et colorés avec diverses couleurs, shapes et typographies. Chaque poster est différent et peut être randomize.
 
 Si possible : 
 
-- Ajouter des curseurs de réglages de paramètres (texture, nombre de formes, nombre de couleurs sur le poster...)
+- Ajouter des curseurs de réglages (texture, nombre de formes, nombre de couleurs sur le poster...)
+- Permettre de changer la couleur de fond du canva
+- Ajouter un outil de dessin libre (pinceau)
 
 ## III/ Snippets
 
 Bout de code pour le projet (fonctionnalités)
  
  - Créer des formes
- - Colorer des formes pleines
- - Ajouter une texture à ces formes
+ - Randomize les couleurs de ces formes avec une palette
  - Ajouter du texte personnalisé
 
 //Structure de base P5.js
