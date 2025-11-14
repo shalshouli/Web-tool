@@ -1,18 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a poster</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Posters generator</h1>
+            <p class="description">
+              Create a random poster with your own text 
+            </p>
+        </header>
+        
+        <div class="text-input">
+            <input type="text" id="customText" placeholder="Write your text..." value="">
+        </div>
+        
+        <div class="controls">
+            <button id="generateBtn">Generate</button>
+            <button id="saveBtn">Download</button>
+        </div>
 
-    <title>Sketch</title>
+        <div class="colors-display">
+            <div class="color-sample" style="background-color: #EA1800;"></div>
+            <div class="color-sample" style="background-color: #013BEB;"></div>
+            <div class="color-sample" style="background-color: #F5A001;"></div>
+            <div class="color-sample" style="background-color: #1B9900;"></div>
+        </div>
+        
+        <div id="canvasContainer"></div>
+    </div>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-  </head>
-
-  <body>
     <script src="sketch.js"></script>
-  </body>
+</body>
 </html>

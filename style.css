@@ -1,8 +1,150 @@
-html, body {
-  margin: 0;
-  padding: 0;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-canvas {
-  display: block;
+body {
+    background: #f8f5f2;
+    color: #333333;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+.description {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #666666;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #d0d0d0;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #f0f0f0;
+    border-color: #a0a0a0;
+}
+
+button:active {
+    background: #e8e8e8;
+}
+
+.text-input {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#customText {
+    width: 400px;
+    padding: 12px 20px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+#customText:focus {
+    outline: none;
+    border-color: #a0a0a0;
+}
+
+#canvasContainer {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#canvasContainer canvas {
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.colors-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.color-sample {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 25px;
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    #customText {
+        width: 90%;
+    }
+    
+    #canvasContainer canvas {
+        max-width: 100%;
+        height: auto;
+    }
 }
