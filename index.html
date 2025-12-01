@@ -3,38 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a poster</title>
+    <title>Posters Generator</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Posters generator</h1>
-            <p class="description">
-              Create a random poster with your own text 
-            </p>
-        </header>
-        
-        <div class="text-input">
-            <input type="text" id="customText" placeholder="Write your text..." value="">
-        </div>
-        
-        <div class="controls">
-            <button id="generateBtn">Generate</button>
-            <button id="saveBtn">Download</button>
-        </div>
+        <div class="sidebar">
+            <header>
+                <h1>Posters Generator</h1>
+                <p class="description">
+                    Create a random poster with your own text.
+                </p>
+            </header>
+            
+            <div class="text-input">
+                <label for="customText">Enter your text:</label>
+                <input type="text" id="customText" placeholder="Type your text here..." value="POSTER">
+            </div>
+            
+            <div class="controls">
+                <button id="generateBtn">Generate</button>
+                <button id="saveBtn">Download</button>
+            </div>
 
-        <div class="colors-display">
-            <div class="color-sample" style="background-color: #EA1800;"></div>
-            <div class="color-sample" style="background-color: #013BEB;"></div>
-            <div class="color-sample" style="background-color: #F5A001;"></div>
-            <div class="color-sample" style="background-color: #1B9900;"></div>
+            <div class="colors-section">
+                <h3>Color Palette</h3>
+                <div class="colors-display">
+                    <div class="color-sample" style="background-color: #EA1800;"></div>
+                    <div class="color-sample" style="background-color: #013BEB;"></div>
+                    <div class="color-sample" style="background-color: #F5A001;"></div>
+                    <div class="color-sample" style="background-color: #1B9900;"></div>
+                </div>
+                <p class="colors-info">Shapes and text will use these 4 colors randomly</p>
+            </div>
+            
+            <div class="fonts-section">
+                <h3>Typography</h3>
+                <div class="fonts-display">
+                    <div class="font-sample">
+                        <span style="font-family: 'Inter', sans-serif; font-weight: bold;">Inter</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Alfa Slab One', serif;">Alfa Slab One</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Pacifico', cursive;">Pacifico</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Montserrat</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Playfair Display', serif; font-weight: 900;">Playfair Display</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Roboto Slab', serif;">Roboto Slab</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Lobster', cursive;">Lobster</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Oswald', sans-serif;">Oswald</span>
+                    </div>
+                    <div class="font-sample">
+                        <span style="font-family: 'Raleway', sans-serif; font-weight: 900;">Raleway</span>
+                    </div>
+                </div>
+                <p class="fonts-info">Fonts are randomly selected for each generation</p>
+            </div>
+            
+            <footer>
+                <p>Posters Generator • P5.js • Google Fonts</p>
+            </footer>
         </div>
         
-        <div id="canvasContainer"></div>
+        <div class="poster-container">
+            <div id="canvasContainer"></div>
+        </div>
     </div>
 
     <script src="sketch.js"></script>
