@@ -3,94 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posters Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Poster 3D Sphères</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ccc;
+            height: 100vh;
+            display: flex;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
+
+        .description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        button {
+            padding: 14px;
+            background: #333;
+            border: 1px solid #444;
+            color: #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: normal;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #ccc;
+        }
+
+        #saveBtn {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+
+        #saveBtn:hover {
+            background: #333;
+            border-color: #444;
+        }
+
+        #canvasContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .info {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        .info p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <header>
-                <h1>Posters Generator</h1>
-                <p class="description">
-                    Create a random poster with your own text.
-                </p>
-            </header>
-            
-            <div class="text-input">
-                <label for="customText">Enter your text:</label>
-                <input type="text" id="customText" placeholder="Type your text here..." value="POSTER">
-            </div>
-            
-            <div class="controls">
-                <button id="generateBtn">Generate</button>
-                <button id="saveBtn">Download</button>
-            </div>
-
-            <div class="colors-section">
-                <h3>Color Palette</h3>
-                <div class="colors-display">
-                    <div class="color-sample" style="background-color: #EA1800;"></div>
-                    <div class="color-sample" style="background-color: #013BEB;"></div>
-                    <div class="color-sample" style="background-color: #F5A001;"></div>
-                    <div class="color-sample" style="background-color: #1B9900;"></div>
-                </div>
-                <p class="colors-info">Shapes and text will use these 4 colors randomly</p>
-            </div>
-            
-            <div class="fonts-section">
-                <h3>Typography</h3>
-                <div class="fonts-display">
-                    <div class="font-sample">
-                        <span style="font-family: 'Inter', sans-serif; font-weight: bold;">Inter</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Alfa Slab One', serif;">Alfa Slab One</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Pacifico', cursive;">Pacifico</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 900;">Montserrat</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Playfair Display', serif; font-weight: 900;">Playfair Display</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Roboto Slab', serif;">Roboto Slab</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Lobster', cursive;">Lobster</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Oswald', sans-serif;">Oswald</span>
-                    </div>
-                    <div class="font-sample">
-                        <span style="font-family: 'Raleway', sans-serif; font-weight: 900;">Raleway</span>
-                    </div>
-                </div>
-                <p class="fonts-info">Fonts are randomly selected for each generation</p>
-            </div>
-            
-            <footer>
-                <p>Posters Generator • P5.js • Google Fonts</p>
-            </footer>
+    <div class="sidebar">
+        <h1>POSTER 3D SPHÈRES</h1>
+        <p class="description">Générateur de compositions 3D avec des sphères</p>
+        
+        <div class="controls">
+            <button id="generateBtn">GÉNÉRER NOUVEAU</button>
+            <button id="saveBtn">TÉLÉCHARGER POSTER</button>
         </div>
         
-        <div class="poster-container">
-            <div id="canvasContainer"></div>
+        <div class="info">
+            <p>• Cliquez-glissez pour tourner</p>
+            <p>• Espace : Nouvelle génération</p>
+            <p>• S : Sauvegarder l'image</p>
         </div>
     </div>
+    
+    <div class="canvas-area">
+        <div id="canvasContainer"></div>
+    </div>
 
-    <script src="sketch.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

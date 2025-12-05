@@ -19,6 +19,7 @@ Si possible :
 - Ajouter des curseurs de réglages (texture, nombre de formes, nombre de couleurs sur le poster...)
 - Permettre de changer la couleur de fond du canva
 - Ajouter un outil de dessin libre (pinceau)
+- Pouvoir mettre le texte où on le souhaite
 
 ## III/ Snippets
 
