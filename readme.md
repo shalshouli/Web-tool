@@ -2,9 +2,9 @@
 
 ## I/ Idée du projet
 
-- Shapes
+- Spheres
 - Colors
-- Typography
+- 3D
 - Posters
 - Randomize 
 ## Liens
@@ -12,14 +12,14 @@
 -[Gradient]([https://](https://everywhere.tools/projects/photo-gradient))
 
 ## II/ Description
-L'outil sert à créer des posters graphique et colorés avec diverses couleurs, shapes et typographies. Chaque poster est différent et peut être randomize.
+L'outil sert à créer une scène 3D comprenant des sphères de diverses tailles et couleurs.
 
 Si possible : 
 
-- Ajouter des curseurs de réglages (texture, nombre de formes, nombre de couleurs sur le poster...)
+- Ajouter des curseurs de réglages (texture, nombre de sphères, nombre de couleurs sur le poster...)
 - Permettre de changer la couleur de fond du canva
 - Ajouter un outil de dessin libre (pinceau)
-- Pouvoir mettre le texte où on le souhaite
+- Pouvoir mettre le texte où on le souhaite sur le poster
 
 ## III/ Snippets
 
