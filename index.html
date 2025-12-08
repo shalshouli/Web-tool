@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poster 3D Sphères</title>
+    <title>Orbify</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <div class="sidebar">
-        <h1>POSTER 3D SPHÈRES</h1>
+        <h1>Orbify,3D generator</h1>
         
         <div class="slider-container">
             <div class="slider-label">
-                <span>Nombre de sphères :</span>
+                <span>Number of spheres</span>
                 <span class="slider-value" id="sphereCountValue">15</span>
             </div>
             <input type="range" min="5" max="30" value="15" class="slider" id="sphereCountSlider">
@@ -20,7 +20,7 @@
         
         <div class="slider-container">
             <div class="slider-label">
-                <span>Teinte des couleurs :</span>
+                <span>Color hue :</span>
                 <span class="slider-value" id="colorHueValue">180°</span>
             </div>
             <input type="range" min="0" max="360" value="180" class="slider" id="colorHueSlider">
@@ -35,15 +35,15 @@
         </div>
         
         <div class="controls">
-            <button id="generateBtn">GÉNÉRER NOUVEAU</button>
-            <button id="saveBtn">TÉLÉCHARGER POSTER</button>
+            <button id="generateBtn">GENERATE NEW</button>
+            <button id="saveBtn">DOWNLOAD POSTER</button>
         </div>
         
         <div class="info">
-            <p>• Cliquez-glissez pour tourner</p>
-            <p>• Espace : Nouvelle génération</p>
-            <p>• S : Sauvegarder l'image</p>
-            <p>• + / - : Ajuster le nombre de sphères</p>
+            <p>• Click and drag to rotate</p>
+            <p>• Space : New generation</p>
+            <p>• S : Save the poster</p>
+            <p>• + / - : Adjust sphere count</p>
         </div>
     </div>
     
