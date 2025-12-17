@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5.capture@1.6.0/dist/p5.capture.umd.min.js"></script>
-    
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
     <div class="sidebar">
-        <h1>Orbify,3D generator</h1>
+        <h1>Orbify</h1>
+        
+        <!-- Conteneur pour la boîte d'enregistrement -->
+        <div id="recording-box-container"></div>
         
         <div class="slider-container">
             <div class="slider-label">
@@ -33,19 +37,20 @@
                 <span>Saturation :</span>
                 <span class="slider-value" id="colorSaturationValue">15%</span>
             </div>
-            <input type="range" min="5" max="30" value="15" class="slider" id="colorSaturationSlider">
+            <input type="range" min="30" max="100" value="60" class="slider" id="colorSaturationSlider">
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-label">
+                <span>Movement speed:</span>
+                <span class="slider-value" id="movementSpeedValue">1.0x</span>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="slider" id="movementSpeedSlider">
         </div>
         
         <div class="controls">
             <button id="generateBtn">GENERATE NEW</button>
             <button id="saveBtn">DOWNLOAD POSTER</button>
-        </div>
-        
-        <div class="info">
-            <p>• Click and drag to rotate</p>
-            <p>• Space : New generation</p>
-            <p>• S : Save the poster</p>
-            <p>• + / - : Adjust sphere count</p>
         </div>
     </div>
     

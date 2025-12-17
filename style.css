@@ -11,7 +11,7 @@ body {
     display: flex;
     font-family: 'Courier New', monospace;
     padding: 20px;
-    gap: 20px;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -22,6 +22,8 @@ body {
     border: 1px solid #333;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 20px;
 }
 
 .canvas-area {
@@ -32,21 +34,15 @@ body {
     background: #000;
     border-radius: 8px;
     overflow: hidden;
+    height: calc(100vh - 0px);
 }
 
 h1 {
     color: #888;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* Augmenté pour espace avec recording */
     font-size: 1.5rem;
     letter-spacing: 1px;
     font-weight: normal;
-}
-
-.description {
-    color: #666;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin-bottom: 10px;
 }
 
 .controls {
@@ -158,41 +154,34 @@ button:hover {
 canvas {
     border-radius: 6px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-.info {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid #333;
-    color: #555;
-    font-size: 0.8rem;
-}
-
-.info p {
-    margin: 5px 0;
-}
-
+/* Supprimez ou modifiez ces styles si p5.capture est dans la sidebar */
 .p5c-container {
-    top: 20px !important; 
-    right: 85% !important;
-    left: 85% !important;
-    width: 200px !important;
+    /* Styles modifiés pour intégration dans la sidebar */
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
     font-family: 'Courier New', monospace !important;
-    background: #1a1a1a !important;
+    background: #222 !important;
     text-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #333 !important;
 }
 
 .p5c-btn {
+position: relative;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 20% !important;
+    cursor: pointer;
+    background: #555 !important;
     box-shadow: none !important;
-    border: 1px solid #444 !important;
-    background: #333 !important;
-    color: #aaa !important;
-    font-size: 0.8rem !important;
-    padding: 8px !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    transition: all 0.2s !important;
-    position: relative !important;
-    display: flex !important;
-    justify-items: center !important;
 }

@@ -10,22 +10,68 @@ let lastMouseY = 0;
 let sphereCount = 15;
 let colorHue = 180;
 let colorSaturation = 15;
+let movementSpeed = 1.0;
 let colorPalette = [];
 
 P5Capture.setDefaultOptions({
   format: "gif",
-  framerate: 30,
+  framerate: 60,
   quality: 1,
   width: 320,
 });
+
+// Fonction pour convertir une valeur linéaire (0-100) en échelle logarithmique (0.0-10.0)
+function logarithmicSpeed(value) {
+    if (value <= 0) return 0.0;
+    
+    if (value <= 50) {
+        return value / 50;
+    } else if (value <= 75) {
+        return 1.0 + ((value - 50) / 25) * 2.0;
+    } else if (value <= 90) {
+        return 3.0 + ((value - 75) / 15) * 3.0;
+    } else {
+        return 6.0 + ((value - 90) / 10) * 4.0;
+    }
+}
+
+// Fonction inverse : convertir une vitesse en valeur de curseur
+function speedToSliderValue(speed) {
+    if (speed <= 0) return 0;
+    if (speed <= 1.0) {
+        return speed * 50;
+    } else if (speed <= 3.0) {
+        return 50 + ((speed - 1.0) / 2.0) * 25;
+    } else if (speed <= 6.0) {
+        return 75 + ((speed - 3.0) / 3.0) * 15;
+    } else {
+        return 90 + ((speed - 6.0) / 4.0) * 10;
+    }
+}
+
+// Fonction pour déplacer l'enregistrement dans la sidebar
+function moveRecordingToSidebar() {
+    setTimeout(() => {
+        const recordingBox = document.querySelector('.p5c-container');
+        const recordingContainer = document.getElementById('recording-box-container');
+        
+        if (recordingBox && recordingContainer) {
+            recordingContainer.appendChild(recordingBox);
+            console.log("Boîte d'enregistrement déplacée dans la sidebar");
+        }
+    }, 1000);
+}
 
 // Initialisation p5.js
 function setup() {
     console.log("Setup en cours...");
     
-    // Créer le canvas - taille réduite pour éviter les problèmes
+    // Créer le canvas
     let canvas = createCanvas(700, 700, WEBGL);
     canvas.parent('canvasContainer');
+    
+    // Déplacer l'enregistrement dans la sidebar
+    moveRecordingToSidebar();
     
     // Générer la palette initiale
     generateColorPalette();
@@ -37,6 +83,45 @@ function setup() {
     generateSpheres();
     
     console.log("Setup terminé");
+}
+
+// Fonction pour générer des valeurs aléatoires pour tous les curseurs
+function generateRandomSettings() {
+    console.log("Génération de paramètres aléatoires...");
+    
+    // 1. Nombre de sphères aléatoire (5-30)
+    sphereCount = Math.floor(random(5, 31));
+    document.getElementById('sphereCountSlider').value = sphereCount;
+    document.getElementById('sphereCountValue').textContent = sphereCount;
+    
+    // 2. Teinte aléatoire (0-360)
+    colorHue = Math.floor(random(0, 361));
+    document.getElementById('colorHueSlider').value = colorHue;
+    document.getElementById('colorHueValue').textContent = colorHue + '°';
+    
+    // 3. Saturation aléatoire (5-30)
+    colorSaturation = Math.floor(random(5, 31));
+    document.getElementById('colorSaturationSlider').value = colorSaturation;
+    document.getElementById('colorSaturationValue').textContent = colorSaturation + '%';
+    
+    // 4. Vitesse aléatoire (0.0-10.0 en échelle logarithmique)
+    const randomSpeed = random(0, 10.1);
+    movementSpeed = randomSpeed;
+    const sliderValue = speedToSliderValue(randomSpeed);
+    document.getElementById('movementSpeedSlider').value = sliderValue;
+    document.getElementById('movementSpeedValue').textContent = randomSpeed.toFixed(1) + 'x';
+    
+    // Regénérer la palette avec les nouvelles valeurs
+    generateColorPalette();
+    
+    // Générer de nouvelles sphères avec les nouveaux paramètres
+    generateSpheres();
+    
+    console.log("Paramètres aléatoires appliqués");
+    console.log(`- Sphères: ${sphereCount}`);
+    console.log(`- Teinte: ${colorHue}°`);
+    console.log(`- Saturation: ${colorSaturation}%`);
+    console.log(`- Vitesse: ${movementSpeed.toFixed(1)}x`);
 }
 
 function draw() {
@@ -60,31 +145,36 @@ function draw() {
         
         push();
         
-        // Position avec animation subtile
-        let time = frameCount * 0.01;
+        // Position avec animation - MULTIPLIÉ PAR movementSpeed
+        let time = frameCount * 0.01 * movementSpeed;
         let moveX = sin(time + s.noiseOffsetX) * 10;
         let moveY = cos(time + s.noiseOffsetY) * 10;
         let moveZ = sin(time * 0.7 + s.noiseOffsetZ) * 5;
         
         translate(s.x + moveX, s.y + moveY, s.z + moveZ);
         
-        // Rotation lente
-        rotateY(s.rotationSpeed * frameCount * 0.01);
+        // Rotation - MULTIPLIÉE PAR movementSpeed
+        rotateY(s.rotationSpeed * frameCount * 0.01 * movementSpeed);
         
         // Couleur avec variations subtiles
-        let colorVariation = sin(frameCount * 0.02 + i) * 0.1;
-        fill(
-            s.baseColor[0] + colorVariation * 20,
-            s.baseColor[1] + colorVariation * 20,
-            s.baseColor[2] + colorVariation * 20
-        );
+        let colorVariation = sin(frameCount * 0.02 * movementSpeed + i) * 0.1;
+        let r = s.baseColor[0] + colorVariation * 20;
+        let g = s.baseColor[1] + colorVariation * 20;
+        let b = s.baseColor[2] + colorVariation * 20;
+        
+        // Limiter les valeurs de couleur
+        r = constrain(r, 30, 100);
+        g = constrain(g, 30, 100);
+        b = constrain(b, 30, 100);
+        
+        fill(r, g, b);
         
         // Taille avec légère variation
-        let sizeVariation = sin(frameCount * 0.015 + i) * 0.1;
+        let sizeVariation = sin(frameCount * 0.015 * movementSpeed + i) * 0.1;
         let currentSize = s.size * (1 + sizeVariation);
         
         // Dessiner la sphère
-        sphere(currentSize, 24, 24); // 24 segments pour un rendu lisse
+        sphere(currentSize, 24, 24);
         
         pop();
     }
@@ -97,12 +187,17 @@ function generateColorPalette() {
     
     for (let i = 0; i < paletteSize; i++) {
         // Variation autour de la teinte principale
-        let hueVariation = (colorHue + map(i, 0, paletteSize, -30, 30)) % 360;
+        const hueOffset = -30 + (i / (paletteSize - 1)) * 60;
+        let hueVariation = (colorHue + hueOffset) % 360;
         
-        // Conversion HSL vers RGB
         let h = hueVariation / 360;
         let s = colorSaturation / 100;
-        let l = 0.5; // Luminosité moyenne
+        let l = 0.6; // Luminosité moyenne-haute
+        
+        // IMPORTANT: Si saturation < 20%, augmenter pour éviter les gris
+        if (s < 0.2) {
+            s = 0.2; // Minimum 20% de saturation
+        }
         
         let rgb = hslToRgb(h, s, l);
         colorPalette.push(rgb);
@@ -148,22 +243,13 @@ function generateSpheres() {
         let colorIndex = floor(random(colorPalette.length));
         
         spheres.push({
-            // Position aléatoire
             x: random(-250, 250),
             y: random(-300, 300),
             z: random(-150, 150),
-            
-            // Taille aléatoire
             size: random(40, 120),
-            
-            // Couleur
             colorIndex: colorIndex,
             baseColor: colorPalette[colorIndex],
-            
-            // Animation
             rotationSpeed: random(-0.5, 0.5),
-            
-            // Offsets pour les animations
             noiseOffsetX: random(100),
             noiseOffsetY: random(100),
             noiseOffsetZ: random(100)
@@ -219,24 +305,40 @@ function initControls() {
         updateSphereColors();
     });
     
-    // Bouton générer
+    // CURSEUR vitesse de mouvement avec échelle logarithmique
+    const speedSlider = document.getElementById('movementSpeedSlider');
+    const speedValue = document.getElementById('movementSpeedValue');
+    
+    // Initialiser le curseur à la position correspondant à 1.0x
+    speedSlider.value = speedToSliderValue(1.0);
+    
+    speedSlider.addEventListener('input', (e) => {
+        const rawValue = parseInt(e.target.value);
+        // Conversion échelle logarithmique
+        movementSpeed = logarithmicSpeed(rawValue);
+        speedValue.textContent = movementSpeed.toFixed(1) + 'x';
+    });
+    
+    // Bouton générer - MAINTENANT AVEC VALEURS ALÉATOIRES
     document.getElementById('generateBtn').addEventListener('click', () => {
-        generateSpheres();
+        generateRandomSettings();
     });
     
     // Bouton sauvegarder
     document.getElementById('saveBtn').addEventListener('click', () => {
-        saveCanvas('poster_3d_' + Date.now(), 'png');
+        saveCanvas('orbify_poster_' + Date.now(), 'png');
     });
     
     // Gestion de la souris pour la rotation
     let canvasElement = document.querySelector('#canvasContainer canvas');
     
-    canvasElement.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        lastMouseX = e.clientX;
-        lastMouseY = e.clientY;
-    });
+    if (canvasElement) {
+        canvasElement.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+    }
     
     document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
@@ -254,17 +356,19 @@ function initControls() {
     document.addEventListener('keydown', (e) => {
         const countSlider = document.getElementById('sphereCountSlider');
         const countValue = document.getElementById('sphereCountValue');
+        const speedSlider = document.getElementById('movementSpeedSlider');
+        const speedValue = document.getElementById('movementSpeedValue');
         
         switch(e.key) {
             case ' ':
                 e.preventDefault();
-                generateSpheres();
+                generateRandomSettings(); // Espace génère aussi des valeurs aléatoires
                 break;
                 
             case 's':
             case 'S':
                 e.preventDefault();
-                saveCanvas('poster_3d_' + Date.now(), 'png');
+                saveCanvas('orbify_poster_' + Date.now(), 'png');
                 break;
                 
             case '+':
@@ -286,6 +390,52 @@ function initControls() {
                     countSlider.value = sphereCount;
                     countValue.textContent = sphereCount;
                     generateSpheres();
+                }
+                break;
+                
+            // RACCOURCIS POUR LA VITESSE
+            case ']':
+            case '}':
+                e.preventDefault();
+                if (movementSpeed < 10.0) {
+                    if (movementSpeed < 1.0) movementSpeed += 0.1;
+                    else if (movementSpeed < 3.0) movementSpeed += 0.2;
+                    else if (movementSpeed < 6.0) movementSpeed += 0.3;
+                    else movementSpeed += 0.4;
+                    
+                    speedSlider.value = speedToSliderValue(movementSpeed);
+                    speedValue.textContent = movementSpeed.toFixed(1) + 'x';
+                }
+                break;
+                
+            case '[':
+            case '{':
+                e.preventDefault();
+                if (movementSpeed > 0.0) {
+                    if (movementSpeed <= 1.0) movementSpeed = Math.max(0, movementSpeed - 0.1);
+                    else if (movementSpeed <= 3.0) movementSpeed -= 0.2;
+                    else if (movementSpeed <= 6.0) movementSpeed -= 0.3;
+                    else movementSpeed -= 0.4;
+                    
+                    speedSlider.value = speedToSliderValue(movementSpeed);
+                    speedValue.textContent = movementSpeed.toFixed(1) + 'x';
+                }
+                break;
+                
+            case '0':
+                e.preventDefault();
+                movementSpeed = 1.0;
+                speedSlider.value = speedToSliderValue(movementSpeed);
+                speedValue.textContent = movementSpeed.toFixed(1) + 'x';
+                break;
+                
+            // Raccourci pour l'enregistrement
+            case 'r':
+            case 'R':
+                e.preventDefault();
+                const recordBtn = document.querySelector('.p5c-btn');
+                if (recordBtn) {
+                    recordBtn.click();
                 }
                 break;
         }
