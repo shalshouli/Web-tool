@@ -12,6 +12,13 @@ let colorHue = 180;
 let colorSaturation = 15;
 let colorPalette = [];
 
+P5Capture.setDefaultOptions({
+  format: "gif",
+  framerate: 30,
+  quality: 1,
+  width: 320,
+});
+
 // Initialisation p5.js
 function setup() {
     console.log("Setup en cours...");

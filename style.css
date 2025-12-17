@@ -171,3 +171,28 @@ canvas {
 .info p {
     margin: 5px 0;
 }
+
+.p5c-container {
+    top: 20px !important; 
+    right: 85% !important;
+    left: 85% !important;
+    width: 200px !important;
+    font-family: 'Courier New', monospace !important;
+    background: #1a1a1a !important;
+    text-shadow: none !important;
+}
+
+.p5c-btn {
+    box-shadow: none !important;
+    border: 1px solid #444 !important;
+    background: #333 !important;
+    color: #aaa !important;
+    font-size: 0.8rem !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    position: relative !important;
+    display: flex !important;
+    justify-items: center !important;
+}
