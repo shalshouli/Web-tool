@@ -39,7 +39,7 @@ body {
 
 h1 {
     color: #888;
-    margin-bottom: 20px; /* Augmenté pour espace avec recording */
+    margin-bottom: 20px;
     font-size: 1.5rem;
     letter-spacing: 1px;
     font-weight: normal;
@@ -161,7 +161,6 @@ canvas {
 
 /* Supprimez ou modifiez ces styles si p5.capture est dans la sidebar */
 .p5c-container {
-    /* Styles modifiés pour intégration dans la sidebar */
     position: relative !important;
     top: auto !important;
     right: auto !important;
