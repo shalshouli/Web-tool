@@ -1,162 +1,65 @@
-# Webtool 
+# ⚫️ Orbify
 
-## I/ Idée du projet
+![Banner](images/orbify-1.png)
+*example of the result*
 
-- Spheres
-- Colors
-- 3D
-- Posters
-- Randomize 
-## Liens
+## About
 
--[Gradient]([https://](https://everywhere.tools/projects/photo-gradient))
+Orbify is an interactive art generator that turns mathematical patterns into beautiful animations. It blends code with creativity, letting anyone design unique visual experiences where science and art connect.
 
-## II/ Description
-L'outil sert à créer une scène 3D comprenant des sphères de diverses tailles et couleurs.
+## **Color Controls**
+- **Color Hue** : Controls the main color tone (0-360°) following the standard color wheel - 0° is red, 180° is cyan, and 360° returns to red.
+- **Saturation** : Controls the color intensity (0-100%) - 0% is grayscale, 100% is fully saturated vibrant colors.
 
-Si possible : 
+## **Composition Controls**
+- **Number of Spheres** : Sets the quantity of orbiting spheres (5-30) - more spheres create denser, more complex patterns.
+- **Movement Speed** : Controls the animation pace (0.0-10.0x) with logarithmic scaling for finer control at slower speeds and wider range at higher speeds.
 
-- Ajouter des curseurs de réglages (texture, nombre de sphères, nombre de couleurs sur le poster...)
-- Permettre de changer la couleur de fond du canva
-- Ajouter un outil de dessin libre (pinceau)
-- Pouvoir mettre le texte où on le souhaite sur le poster
+## **Export & Recording**
+- **GIF Recording** : Built-in recording tool to capture animated GIFs of your orbital patterns with customizable framerate and quality settings.
+- **Download Poster** : Exports the current 3D scene as a high-quality PNG image suitable for printing or sharing.
 
-## III/ Snippets
+## **Interaction Controls**
+- **Generate New** : Randomizes all parameters (spheres, colors, speed) to instantly create new unique compositions.
+- **3D Rotation** : Click and drag on the canvas to rotate the orbital scene in real-time for different viewing angles.
+- **Theme Toggle** : Switch between dark mode (default) and light mode for different visual preferences and ambient lighting.
 
-Bout de code pour le projet (fonctionnalités)
- 
- - Créer des formes
- - Randomize les couleurs de ces formes avec une palette
- - Ajouter du texte personnalisé
+## **Keyboard Shortcuts**
+- **Spacebar** : Randomize all parameters
+- **S** : Save current view as PNG
+- **+/-** : Increase/decrease number of spheres
+- **[ ]** : Decrease/increase movement speed
+- **0** : Reset speed to 1.0x
+- **R** : Start/stop GIF recording
 
-//Structure de base P5.js
+## **Visual Aesthetic**
 
-````
-let canvas;
+**Atmosphere & Mood**
+- Monochromatic dark theme with subtle blue-gray accents
+- Industrial-minimalist aesthetic inspired by technical interfaces
+- Low-contrast design promoting visual comfort during extended use
 
-function setup() {
-    // Création du canvas
-    canvas = createCanvas(800, 1000);
-    canvas.parent('canvasContainer');
-    
-    // Génération initiale
-    generatePoster();
-    
-    // Événements
-    document.getElementById('generateBtn').addEventListener('click', generatePoster);
-    document.getElementById('saveBtn').addEventListener('click', savePoster);
-    document.getElementById('customText').addEventListener('input', generatePoster);
-}
+**Typography & Textures**
+- Clean `Courier New` monospace font throughout interface
+- Subtle letter-spacing for enhanced readability
+- Matte finish controls with soft border definitions
+- Gradient-free, flat color fields with delicate surface textures
 
-function generatePoster() {
-    background(255); // Fond blanc
-    generateShapes(); // Génération des formes
-    addCustomText(); // Ajout du texte
-}
+**Visual Hierarchy**
+- Layered containers with barely perceptible borders
+- Strategic use of negative space and airy padding
+- Discreet value indicators with understated typography
+- Unobtrusive slider controls with minimal visual weight
 
-function savePoster() {
-    saveCanvas('poster_' + Date.now(), 'png');
-}
-````
+## Snippets
+#### Generate the spheres inside the canva
+![Spheres generation](images/screenshot1.png)
 
-//Création de formes géométriques parfaites
+#### Generate the animation of the spheres
+![Spheres generation](images/screenshot2.png)
 
-```
- function generateShapes() {
-    // Désactivation des contours
-    noStroke();
-    
-    // Génération d'un nombre aléatoire de formes
-    let shapeCount = int(random(8, 12));
-    
-    for (let i = 0; i < shapeCount; i++) {
-        let x = random(width);
-        let y = random(height);
-        
-        // Sélection aléatoire d'une couleur
-        let colorIndex = int(random(colors.length));
-        let chosenColor = color(colors[colorIndex]);
-        let alpha = random(150, 230);
-        chosenColor.setAlpha(alpha);
-        fill(chosenColor);
-        
-        // Sélection aléatoire du type de forme
-        let shapeType = int(random(3));
-        
-        switch(shapeType) {
-            case 0:
-                // Cercle parfait - diamètre 100px
-                ellipse(x, y, 100, 100);
-                break;
-            case 1:
-                // Carré parfait - 100x100px
-                rect(x, y, 100, 100);
-                break;
-            case 2:
-                // Triangle équilatéral parfait
-                let triangleSize = 100;
-                triangle(
-                    x, y,
-                    x + triangleSize, y,
-                    x + triangleSize/2, y - (triangleSize * 0.866)
-                );
-                break;
-        }
-    }
-}
-````
+#### p5.capture for recording
+![Spheres generation](images/screenshot3.png)
 
-//Ajout de typographie avec polices Google Fonts
-
-```// Définition des polices disponibles
-let fonts = ['Inter', 'Alfa Slab One'];
-
-function addCustomText() {
-    // Récupération du texte personnalisé
-    let customText = document.getElementById('customText').value;
-    if (customText.trim() === "") {
-        customText = "COMPOSITION";
-    }
-    
-    // Sélection aléatoire de la police
-    let fontIndex = int(random(fonts.length));
-    let chosenFont = fonts[fontIndex];
-    
-    // Application des styles typographiques
-    textFont(chosenFont);
-    textAlign(CENTER, CENTER);
-    textSize(random(80, 140)); // Taille aléatoire entre 80 et 140px
-    
-    // Adaptation du style selon la police
-    if (chosenFont === 'Inter') {
-        textStyle(BOLD);
-    } else {
-        textStyle(NORMAL);
-    }
-    
-    // Sélection aléatoire de la couleur du texte
-    let textColorIndex = int(random(colors.length));
-    fill(colors[textColorIndex]);
-    
-    // Positionnement aléatoire du texte
-    let x = width / 2;
-    let y = random(250, height - 250);
-    
-    // Affichage du texte
-    text(customText, x, y);
-}
-````
-
-
-// Définition de la palette de 4 couleurs
-```
-const colors = ['#EA1800', '#013BEB', '#F5A001', '#1B9900'];
-
-// Utilisation d'une couleur aléatoire
-let colorIndex = int(random(colors.length));
-let chosenColor = color(colors[colorIndex]);
-
-// Application avec transparence
-let alpha = random(150, 230);
-chosenColor.setAlpha(alpha);
-fill(chosenColor);
+#### Randomize the scene
+![Spheres generation](images/screenshot4.png)
