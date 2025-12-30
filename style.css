@@ -185,3 +185,50 @@ position: relative;
     box-shadow: none !important;
 }
 
+.sidebar {
+    overflow-y: auto;
+    max-height: calc(100vh - 40px); /* 40px pour le padding du body */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Section about en bas */
+.about-section {
+    margin-top: auto; /* Pousse la section en bas */
+    padding-top: 25px;
+    border-top: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.about-text {
+    color: #777;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.copyright {
+    color: #666;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
