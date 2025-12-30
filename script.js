@@ -5,6 +5,8 @@ let rotationY = 0;
 let isDragging = false;
 let lastMouseX = 0;
 let lastMouseY = 0;
+let isLightMode = false;
+let saveCounter = 1;
 
 // Paramètres
 let sphereCount = 15;
@@ -57,6 +59,7 @@ function moveRecordingToSidebar() {
         
         if (recordingBox && recordingContainer) {
             recordingContainer.appendChild(recordingBox);
+            recordingBox.draggable = false;
             console.log("Boîte d'enregistrement déplacée dans la sidebar");
         }
     }, 1000);
@@ -99,8 +102,8 @@ function generateRandomSettings() {
     document.getElementById('colorHueSlider').value = colorHue;
     document.getElementById('colorHueValue').textContent = colorHue + '°';
     
-    // 3. Saturation aléatoire (5-30)
-    colorSaturation = Math.floor(random(5, 31));
+    // 3. Saturation aléatoire (5-100)
+    colorSaturation = Math.floor(random(5, 101));
     document.getElementById('colorSaturationSlider').value = colorSaturation;
     document.getElementById('colorSaturationValue').textContent = colorSaturation + '%';
     
@@ -115,7 +118,7 @@ function generateRandomSettings() {
     generateColorPalette();
     
     // Générer de nouvelles sphères avec les nouveaux paramètres
-    generateSpheres();
+    generateSpheres(); 
     
     console.log("Paramètres aléatoires appliqués");
     console.log(`- Sphères: ${sphereCount}`);
@@ -125,12 +128,21 @@ function generateRandomSettings() {
 }
 
 function draw() {
-    // Fond sombre
-    background(15, 15, 20);
+    // Fond
+    if (isLightMode) {
+        background(240, 240, 245);
+    } else {
+        background(15, 15, 20);
+    }
     
-    // Éclairage minimal
-    ambientLight(60);
-    directionalLight(255, 255, 255, 0, 0, -1);
+    // Éclairage
+    if (isLightMode) {
+        ambientLight(200);
+        directionalLight(255, 255, 255, 0, 0, -1);
+    } else {
+        ambientLight(60);
+        directionalLight(255, 255, 255, 0, 0, -1);
+    }
     
     // Contrôles de rotation
     rotateX(rotationY);
@@ -161,11 +173,6 @@ function draw() {
         let r = s.baseColor[0] + colorVariation * 20;
         let g = s.baseColor[1] + colorVariation * 20;
         let b = s.baseColor[2] + colorVariation * 20;
-        
-        // Limiter les valeurs de couleur
-        r = constrain(r, 30, 100);
-        g = constrain(g, 30, 100);
-        b = constrain(b, 30, 100);
         
         fill(r, g, b);
         
@@ -326,7 +333,16 @@ function initControls() {
     
     // Bouton sauvegarder
     document.getElementById('saveBtn').addEventListener('click', () => {
-        saveCanvas('orbify_poster_' + Date.now(), 'png');
+        saveCanvas('orbify_poster_' + saveCounter, 'png');
+        saveCounter++;
+    });
+    
+    // Bouton thème
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        isLightMode = !isLightMode;
+        document.body.classList.toggle('light-mode');
+        const button = document.getElementById('themeToggle');
+        button.textContent = isLightMode ? '🌙' : '☀️';
     });
     
     // Gestion de la souris pour la rotation

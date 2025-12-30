@@ -11,7 +11,10 @@
 </head>
 <body>
     <div class="sidebar">
-        <h1>Orbify</h1>
+        <div class="header">
+            <h1>Orbify</h1>
+            <button id="themeToggle" class="theme-btn">☀️</button>
+        </div>
         
         <!-- Conteneur pour la boîte d'enregistrement -->
         <div id="recording-box-container"></div>
@@ -37,7 +40,7 @@
                 <span>Saturation :</span>
                 <span class="slider-value" id="colorSaturationValue">15%</span>
             </div>
-            <input type="range" min="30" max="100" value="60" class="slider" id="colorSaturationSlider">
+            <input type="range" min="5" max="100" value="15" class="slider" id="colorSaturationSlider">
         </div>
 
         <div class="slider-container">
