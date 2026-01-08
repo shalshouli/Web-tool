@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbify</title>
+    <title>Atomic</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5.capture@1.6.0/dist/p5.capture.umd.min.js"></script>
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/images/atom_p.png" type="image/png">
 </head>
 <body>
     <div class="sidebar">
         <div class="header">
-            <h1>Orbify</h1>
+            <h1>Atomic</h1>
             <button id="themeToggle" class="theme-btn">☀️</button>
         </div>
         
@@ -21,7 +21,7 @@
         
         <div class="slider-container">
             <div class="slider-label">
-                <span>Number of spheres</span>
+                <span>Number of shapes</span>
                 <span class="slider-value" id="sphereCountValue">15</span>
             </div>
             <input type="range" min="5" max="30" value="15" class="slider" id="sphereCountSlider">
@@ -51,20 +51,69 @@
             <input type="range" min="0" max="100" value="50" class="slider" id="movementSpeedSlider">
         </div>
         
+        <!-- NOUVEAU : Contrôle de pourcentages individuels -->
+        <div class="shapes-container">
+            <div class="shapes-label">
+                <span>Shapes Distribution</span>
+                <span class="shapes-total" id="shapesTotalValue">100%</span>
+            </div>
+            
+            <div class="shape-controls">
+                <div class="shape-control-group">
+                    <div class="shape-control-label">
+                        <div class="shape-control-icon">●</div>
+                        <span>Spheres</span>
+                        <span class="shape-percentage" id="spherePercentageValue">100%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="100" class="shape-slider" id="spherePercentageSlider" data-shape="sphere">
+                </div>
+                
+                <div class="shape-control-group">
+                    <div class="shape-control-label">
+                        <div class="shape-control-icon">▢</div>
+                        <span>Cubes</span>
+                        <span class="shape-percentage" id="boxPercentageValue">0%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" class="shape-slider" id="boxPercentageSlider" data-shape="box">
+                </div>
+                
+                <div class="shape-control-group">
+                    <div class="shape-control-label">
+                        <div class="shape-control-icon">⭘</div>
+                        <span>Torus</span>
+                        <span class="shape-percentage" id="torusPercentageValue">0%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" class="shape-slider" id="torusPercentageSlider" data-shape="torus">
+                </div>
+                
+                <div class="shape-control-group">
+                    <div class="shape-control-label">
+                        <div class="shape-control-icon cone-icon">△</div>
+                        <span>Cones</span>
+                        <span class="shape-percentage" id="conePercentageValue">0%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" class="shape-slider" id="conePercentageSlider" data-shape="cone">
+                </div>
+            </div>
+            
+            <div class="shapes-actions">
+                <button id="resetShapesBtn" class="shapes-action-btn">Reset</button>
+                <button id="equalizeShapesBtn" class="shapes-action-btn">Equalize</button>
+            </div>
+        </div>
+        
         <div class="controls">
             <button id="generateBtn">GENERATE NEW</button>
             <button id="saveBtn">DOWNLOAD</button>
         </div>
 
-        <!-- Ajoutez ce div à la FIN de la sidebar, avant la fermeture </div> -->
-<div class="about-section">
-   <p class="copyright">
-        Orbify Generator v1.0 © 2026 S.F<br>
-        Software provided under MIT License<br>
-        Generated artworks are the copyright of their respective creators
-    </p>
-</div>
-
+        <div class="about-section">
+            <p class="copyright">
+                Atomic Generator v1.0 © 2026 S.F<br>
+                Software provided under MIT License<br>
+                Generated artworks are the copyright of their respective creators
+            </p>
+        </div>
     </div>
     
     <div class="canvas-area">
